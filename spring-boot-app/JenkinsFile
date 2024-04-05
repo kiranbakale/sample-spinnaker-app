@@ -13,8 +13,8 @@ pipeline {
                 sh 'cd /var/lib/jenkins/workspace'
                 sh 'rm -r spinnaker-sample-app spinnaker-sample-app@tmp'
                 sh 'pwd'
-                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: '
-https://github.com/kiranbakale/sample-spinnaker-app.git']]])
+                git branch: 'dev-spinnaker-app', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git'
+                sh 'ls'
     
                 
             }
