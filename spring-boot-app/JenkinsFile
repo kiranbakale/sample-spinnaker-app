@@ -7,14 +7,14 @@ pipeline {
     }
   
     stages {
-        stage('Clean Workspace') {
+         stage('Cleaning Workspace') {
             steps {
-                deleteDir()
+                cleanWs()
             }
         }
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])
             }
         }
         stage('Build and Test') {
