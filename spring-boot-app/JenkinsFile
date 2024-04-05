@@ -1,5 +1,6 @@
 pipeline {
     agent {
+
         docker {
             image 'kiran63/maven:latest'
             args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
@@ -9,6 +10,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sh 'cd /var/lib/jenkins/workspace'
+                sh 'rm -r spinnaker-sample-app spinnaker-sample-app@tmp'
                 sh 'pwd'
                 sh 'echo passed!!!!'
                 git branch: 'main', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git'
