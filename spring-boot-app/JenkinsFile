@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'kiran63/maven:latest'
-            args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+            args '--user jenkins -v /var/run/docker.sock:/var/run/docker.sock'
         }
     }
   
@@ -14,6 +14,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git'
                 sh 'pwd'
                 sh 'ls'
+                
             }
         }
         stage('Build and Test') {
