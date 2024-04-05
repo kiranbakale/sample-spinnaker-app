@@ -7,19 +7,15 @@ pipeline {
     }
   
     stages {
-         stages {
         stage('Cleaning Workspace') {
             steps {
-                sh 'pwd'
-                sh 'ls ltr'
                 cleanWs()
             }
         }
-        stage('Checkout from Git') {
+        stage('Checkout') {
             steps {
-                git branch: 'dev-spinnaker-app', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git'
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])
             }
-        }
         }
         stage('Build and Test') {
             steps {
