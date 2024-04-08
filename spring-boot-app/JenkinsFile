@@ -7,15 +7,12 @@ pipeline {
     }
   
     stages {
-        stage('Checkout') {
+       stage('Git') {
+ 
             steps {
-                sh 'pwd'
-                sh 'echo passed!!!!'
-                git branch: 'main', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git'
-                sh 'pwd'
-                sh 'ls'
-                
-            }
+ 
+                checkout([$class: 'GitSCM', branches: [[name: '*/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/mfarhansayed/php-project.git']]])                   }
+ 
         }
         stage('Build and Test') {
             steps {
