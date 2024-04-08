@@ -7,26 +7,24 @@ pipeline {
     }
   
     stages {
-        stage('Cleaning Workspace') {
+       stage('Git') {
+ 
             steps {
-                cleanWs()
-            }
-        }
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github-creds', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])
-            }
+ 
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])                   }
+ 
         }
         stage('Build and Test') {
             steps {
-                // build the project and create a JAR file
+                sh 'ls -ltr'
+                // build the project and create a JAR files
                 sh 'cd spring-boot-app && mvn clean package'
             }
         }
         
         stage('Build and Push Docker Image') {
             environment {
-                DOCKER_IMAGE = "kiran63/sample-maven-app:latest"
+                DOCKER_IMAGE = "kiran63/sample-maven-app:${BUILD_NUMBER}"
                 DOCKERFILE_LOCATION = "spring-boot-app/Dockerfile"
                 REGISTRY_CREDENTIALS = credentials('docker-cred1')
             }
@@ -40,5 +38,6 @@ pipeline {
                 }
             }
         }
+        
     }
 }
