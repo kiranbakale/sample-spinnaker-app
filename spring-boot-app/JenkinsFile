@@ -11,7 +11,7 @@ pipeline {
  
             steps {
  
-                checkout([$class: 'GitSCM', branches: [[name: '*/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/mfarhansayed/php-project.git']]])                   }
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev-spinnaker-app']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'git', url: 'https://github.com/kiranbakale/sample-spinnaker-app.git']]])                   }
  
         }
         stage('Build and Test') {
