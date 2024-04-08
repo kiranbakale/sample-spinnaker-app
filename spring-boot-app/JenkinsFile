@@ -7,6 +7,12 @@ pipeline {
     }
   
     stages {
+       stage ('cleanup') {
+            steps{
+                sh 'pwd'
+                sh 'ls -ltr'
+            }
+       }
        stage('Git') {
  
             steps {
